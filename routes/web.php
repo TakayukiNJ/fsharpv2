@@ -20,8 +20,14 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 //payment form
-Route::get('/', 'PaymentController@index');
+//Route::get('/', 'PaymentController@index');
 // route for processing payment
 Route::post('paypal', 'PaymentController@payWithpaypal');
 // route for check status of the payment
 Route::get('status', 'PaymentController@getPaymentStatus');
+
+Route::get('payment-status',array('as'=>'payment.status','uses'=>'PaymentController@paymentInfo'));
+Route::get('payment',array('as'=>'payment','uses'=>'PaymentController@payment'));
+Route::get('payment-cancel', function () {
+    return 'Payment has been canceled';
+});

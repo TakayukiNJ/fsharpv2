@@ -83,16 +83,28 @@
                 <div class="title m-b-md">
                     Laravel
                 </div>
-                <form class="w3-container w3-display-middle w3-card-4 " method="POST" id="payment-form"  action="/payment/add-funds/paypal">
+                {{--<form class="w3-container w3-display-middle w3-card-4 " method="POST" id="payment-form"  action="/payment/add-funds/paypal">--}}
 {{--                    {{ csrf_field() }}--}}
+                    {{--@csrf--}}
+                    {{--<h2 class="w3-text-blue">Payment Form</h2>--}}
+                    {{--<p>Demo PayPal form - Integrating paypal in laravel</p>--}}
+                    {{--<p>--}}
+                        {{--<label class="w3-text-blue"><b>Enter Amount</b></label>--}}
+                        {{--<input class="w3-input w3-border" name="amount" type="text"></p>--}}
+                    {{--<button class="w3-btn w3-blue">Pay with PayPal</button></p>--}}
+                {{--</form>--}}
+                <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" name="frmTransaction" id="frmTransaction">
                     @csrf
-                    <h2 class="w3-text-blue">Payment Form</h2>
-                    <p>Demo PayPal form - Integrating paypal in laravel</p>
-                    <p>
-                        <label class="w3-text-blue"><b>Enter Amount</b></label>
-                        <input class="w3-input w3-border" name="amount" type="text"></p>
-                    <button class="w3-btn w3-blue">Pay with PayPal</button></p>
+                    <input type="hidden" name="business" value="{{ $paypal_id ?? '' }}">
+                    <input type="hidden" name="cmd" value="_xclick">
+                    <input type="hidden" name="item_name" value="{{ $product ?? '' }}">
+                    {{--<input type="hidden" name="item_number" value="{{$product->id}}">--}}
+                    {{--<input type="hidden" name="amount" value="{{$product->price}}">--}}
+                    <input type="hidden" name="currency_code" value="USD">
+                    <input type="hidden" name="cancel_return" value="http://demo.expertphp.in/payment-cancel">
+                    <input type="hidden" name="return" value="http://demo.expertphp.in/payment-status">
                 </form>
+                <script>document.frmTransaction.submit();</script>
 
                 <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
